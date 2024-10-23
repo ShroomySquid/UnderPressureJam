@@ -4,6 +4,7 @@ extends Control
 
 func _ready():
 	$Settings.hide()
+	$Credits.hide()
 
 func _process(_delta):
 	pass
@@ -18,3 +19,11 @@ func _on_settings_btn_pressed():
 func _on_settings_exit_settings():
 	$MenuContainer.show()
 	$Settings.hide()
+
+func _on_credits_btn_pressed():
+	$MenuContainer.hide()
+	$Credits.show()
+
+func _on_credits_back_to_menu():
+	$MenuContainer.show()
+	$Credits.hide()
