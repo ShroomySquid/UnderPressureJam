@@ -9,7 +9,7 @@ script = ExtResource("1_dawik")
 
 [node name="MusicStream" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_0ddlt")
-volume_db = 5.0
+volume_db = -60.0
 autoplay = true
 bus = &"Music"
 
