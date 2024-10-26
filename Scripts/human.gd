@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 @onready var max_mouv := 5
 @onready var cur_mouv := 5

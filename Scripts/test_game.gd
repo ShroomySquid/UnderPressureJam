@@ -17,9 +17,11 @@ extends Node2D
 var mouse_pos
 var last_mouse_pos
 var mouse_atlas
-var dis_to_move
+var dis_to_move 
 
 func _ready():
+	#var space_state = get_world_2d().direct_space_state
+	#var sight_check = space_state.intersect_ray()
 	var starting_pos = Vector2i(4, 4)
 	for human in human_array:
 		human.set_new_pos(starting_pos)
