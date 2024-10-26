@@ -2,7 +2,7 @@
 
 So here's the idea i'll be working with:
 
-Top-down (maybe isometric?) game where you play as a team of people/scientists who try to keep a nuclear power plant from exploding during a zombie apocalypse.
+Top-down isometric game where you play as scientist who try to keep a nuclear power plant from exploding during a zombie apocalypse.
 
 Visual && music: halloween theme in mind + zombie apocalypse + tchernobyl/eatern europe
 
