@@ -7,7 +7,7 @@
 radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndvn0"]
-radius = 204.0
+radius = 15.2643
 
 [node name="Zombie" type="CharacterBody2D"]
 position = Vector2(47, 56)
@@ -25,6 +25,7 @@ shape = SubResource("CircleShape2D_0ej7t")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 navigation_layers = 3
+avoidance_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
