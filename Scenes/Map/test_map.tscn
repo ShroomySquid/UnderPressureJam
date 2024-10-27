@@ -1,6 +1,13 @@
-[gd_scene load_steps=4 format=4 uid="uid://copc5o12pg2m5"]
+[gd_scene load_steps=6 format=4 uid="uid://copc5o12pg2m5"]
 
 [ext_resource type="Texture2D" uid="uid://mpsfd04pgwgp" path="res://Art Assets/Template version/basic template tile sheet.png" id="1_4bymv"]
+[ext_resource type="Script" path="res://Scripts/test_map.gd" id="1_y8s1q"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_gxk2q"]
+vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_df78q"]
 texture = ExtResource("1_4bymv")
@@ -8,6 +15,7 @@ texture_region_size = Vector2i(32, 16)
 0:0/size_in_atlas = Vector2i(1, 2)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_gxk2q")
 1:0/size_in_atlas = Vector2i(1, 2)
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, -8)
@@ -41,10 +49,12 @@ texture_region_size = Vector2i(32, 16)
 tile_shape = 1
 tile_size = Vector2i(32, 16)
 physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 14
+physics_layer_0/collision_mask = 30
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_df78q")
 
 [node name="Test_map" type="Node2D"]
+script = ExtResource("1_y8s1q")
 
 [node name="Floor" type="TileMapLayer" parent="."]
 y_sort_enabled = true
@@ -53,5 +63,67 @@ tile_set = SubResource("TileSet_bhm3j")
 
 [node name="Wall&Furniture" type="TileMapLayer" parent="."]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAABABMAAAAHAAAAAAACABIAAAAHAAAAAAACABEAAAAHAAAAAAADABAAAAAHAAAAAAADAA8AAAAHAAAAAAAEAA4AAAAHAAAAAAAEAA0AAAAHAAAAAAAFAAwAAAAHAAAAAAAFAAsAAAAHAAAAAAAGAAoAAAAHAAAAAAAGAAkAAAAHAAAAAAAHAAgAAAAHAAAAAAAHAAcAAAAHAAAAAAAKAAcAAAAIAAAAAAALAAgAAAAIAAAAAAALAAkAAAAIAAAAAAAMAAoAAAAIAAAAAAAMAAsAAAAIAAAAAAANAAwAAAAIAAAAAAANAA0AAAAIAAAAAAAOAA4AAAAIAAAAAAAOAA8AAAAIAAAAAAAPABAAAAAIAAAAAAAPABEAAAAIAAAAAAAQABIAAAAIAAAAAAAQABMAAAAIAAAAAAA=")
+tile_map_data = PackedByteArray("AAABABMAAAAHAAAAAAACABIAAAAHAAAAAAACABEAAAAHAAAAAAADABAAAAAHAAAAAAADAA8AAAAHAAAAAAAEAA4AAAAHAAAAAAAEAA0AAAAHAAAAAAAFAAwAAAAHAAAAAAAFAAsAAAAHAAAAAAAGAAoAAAAHAAAAAAAGAAkAAAAHAAAAAAAHAAgAAAAHAAAAAAAHAAcAAAAHAAAAAAAKAAcAAAAIAAAAAAALAAgAAAAIAAAAAAALAAkAAAAIAAAAAAAMAAoAAAAIAAAAAAAMAAsAAAAIAAAAAAANAAwAAAAIAAAAAAANAA0AAAAIAAAAAAAOAA4AAAAIAAAAAAAOAA8AAAAIAAAAAAAPABAAAAAIAAAAAAAPABEAAAAIAAAAAAAQABIAAAAIAAAAAAAQABMAAAAIAAAAAAAIABQAAAAIAAAAAAAIABUAAAAIAAAAAAAJABYAAAAIAAAAAAAJABcAAAAIAAAAAAAKABgAAAAIAAAAAAAKABkAAAAIAAAAAAALABoAAAAIAAAAAAALABsAAAAIAAAAAAAMABwAAAAIAAAAAAAEABQAAAAIAAAAAAAEABUAAAAIAAAAAAA=")
 tile_set = SubResource("TileSet_bhm3j")
+
+[node name="ZombiePointContainer" type="Node2D" parent="."]
+
+[node name="ZombieNavigation" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(234, 308)
+
+[node name="ZombieNavigation2" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(502, 202)
+
+[node name="ZombieNavigation3" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(198, 53)
+
+[node name="ZombieNavigation4" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(315, 303)
+
+[node name="ZombieNavigation5" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(345, 141)
+
+[node name="ZombieNavigation6" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(547, 61)
+
+[node name="ZombieNavigation7" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(521, 275)
+
+[node name="ZombieNavigation8" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(193, 200)
+
+[node name="ZombieNavigation9" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(430, 297)
+
+[node name="ZombieNavigation10" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(86, 300)
+
+[node name="ZombieNavigation11" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(17, 199)
+
+[node name="ZombieNavigation12" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(459, 165)
+
+[node name="ZombieNavigation13" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(131, 75)
+
+[node name="ZombieNavigation14" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(286, 240)
+
+[node name="ZombieNavigation15" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(306, 95)
+
+[node name="ZombieNavigation16" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(498, 71)
+
+[node name="ZombieNavigation17" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(476, 260)
+
+[node name="ZombieNavigation18" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(171, 262)
+
+[node name="ZombieNavigation19" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(58, 75)
+
+[node name="ZombieNavigation20" type="Marker2D" parent="ZombiePointContainer"]
+position = Vector2(41, 285)
