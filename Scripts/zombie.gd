@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var default_route = [Vector2i(0, 0), Vector2i(0, 0)]
 @onready var going_back = true
 @onready var is_chasing = false
+@onready var player_in_range = false
 
 var SPEED = 2000.0
 var direction
@@ -92,8 +93,6 @@ func set_route():
 		nav_agent.target_position = default_route[1]
 	going_back = !going_back
 
-#func _on_area_2d_area_entered(area):
-#	print(area)
-
-#func _on_area_2d_area_exited(area):
-#	print(area)
+func _on_area_2d_body_exited(body):
+	if body.type == "player":
+		is_chasing = false

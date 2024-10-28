@@ -5,10 +5,10 @@
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jn1di"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_goaiu"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_s7i3q"]
 vertices = PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(16, 0, 0, 8, -16, 0, 0, -8)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)])
 agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_df78q"]
@@ -50,7 +50,7 @@ texture_region_size = Vector2i(32, 16)
 8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12.3, -1.85, -16, 0, 0, 8, 3.1, 6.45)
 0:2/size_in_atlas = Vector2i(1, 2)
 0:2/0 = 0
-0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_goaiu")
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_s7i3q")
 
 [sub_resource type="TileSet" id="TileSet_bhm3j"]
 tile_shape = 1
