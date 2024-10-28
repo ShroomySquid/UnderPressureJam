@@ -3,8 +3,13 @@ extends Node2D
 @onready var is_paused := false
 @onready var menu = $CanvasLayer/MenuContainer
 @onready var settings = $CanvasLayer/Settings
+@onready var zombie_container = $ZombieContainer
+@onready var test_map = $Test_map
+@onready var zombie = preload("res://Scenes/PhysicsScenes/zombie.tscn")
 
 func _ready():
+	randomize()
+	create_some_zombies()
 	menu.hide()
 	settings.hide()
 
@@ -44,3 +49,21 @@ func _on_quit_btn_pressed():
 
 func _on_retry_btn_pressed():
 	get_tree().change_scene_to_file("res://Scenes/CoreScenes/game.tscn")
+	
+func create_some_zombies():
+	var i = 0
+	var new_zomb
+	var begin
+	var end
+	while (i < 1):
+		new_zomb = zombie.instantiate()
+		begin = test_map.zombie_point_container.get_child(randi() % 20).global_position
+		end = test_map.zombie_point_container.get_child(randi() % 20).global_position
+		while (end == begin):
+			end = test_map.zombie_point_container.get_child(randi() % 20).global_position
+		new_zomb.position = begin
+		zombie_container.add_child(new_zomb)
+		new_zomb.default_route[0] = begin
+		new_zomb.default_route[1] = end
+		new_zomb.set_route()
+		i += 1

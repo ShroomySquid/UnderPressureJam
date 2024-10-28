@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://6g7k060vtbeu"]
+[gd_scene load_steps=5 format=3 uid="uid://6g7k060vtbeu"]
 
 [ext_resource type="Script" path="res://Scripts/zombie.gd" id="1_0sx26"]
 [ext_resource type="Texture2D" uid="uid://rbq4hvtpyhnt" path="res://Images/zombie_dot.png" id="1_f44bm"]
@@ -6,8 +6,13 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ej7t"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndvn0"]
+radius = 260.094
+
 [node name="Zombie" type="CharacterBody2D"]
 position = Vector2(47, 56)
+collision_layer = 2
+collision_mask = 22
 script = ExtResource("1_0sx26")
 
 [node name="ZombieSprite" type="Sprite2D" parent="."]
@@ -17,3 +22,16 @@ texture = ExtResource("1_f44bm")
 shape = SubResource("CircleShape2D_0ej7t")
 
 [node name="RayContainer" type="Node2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+navigation_layers = 3
+avoidance_enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 30
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ndvn0")
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
