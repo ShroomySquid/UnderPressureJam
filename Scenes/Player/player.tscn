@@ -1,19 +1,78 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6044fncy35yu"]
+[gd_scene load_steps=11 format=3 uid="uid://b6044fncy35yu"]
 
 [ext_resource type="Texture2D" uid="uid://byf8wh4qw8ufn" path="res://icon.svg" id="1_ewrbe"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ii8yk"]
+[ext_resource type="Texture2D" uid="uid://sak84vhmbr7d" path="res://Art Assets/Tile sheet ver 2 and Charac sheet ver 1/Charac sheet ver 1.png" id="3_gy3o7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gswpi"]
-radius = 60.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0mcy6"]
+radius = 7.35292
+height = 16.6665
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqbl2"]
+atlas = ExtResource("3_gy3o7")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuafw"]
+atlas = ExtResource("3_gy3o7")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86k64"]
+atlas = ExtResource("3_gy3o7")
+region = Rect2(0, 48, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2ylb"]
+atlas = ExtResource("3_gy3o7")
+region = Rect2(32, 48, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ddmui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqbl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuafw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86k64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2ylb")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 1.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0vhp5"]
+height = 33.3348
 
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(0.2, 0.2)
-collision_layer = 2
-collision_mask = 14
+collision_layer = 16
+collision_mask = 15
 script = ExtResource("1_ii8yk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_ewrbe")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gswpi")
+[node name="WalkCollision" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(0.680002, 0.120001)
+shape = SubResource("CapsuleShape2D_0mcy6")
+
+[node name="IdleAnimation" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(1, -24)
+sprite_frames = SubResource("SpriteFrames_ddmui")
+animation = &"Idle"
+frame_progress = 0.828467
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(1, -16)
+scale = Vector2(0.695354, 0.779966)
+shape = SubResource("CapsuleShape2D_0vhp5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
