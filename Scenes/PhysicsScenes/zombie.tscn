@@ -1,14 +1,22 @@
-[gd_scene load_steps=11 format=3 uid="uid://6g7k060vtbeu"]
+[gd_scene load_steps=17 format=3 uid="uid://6g7k060vtbeu"]
 
 [ext_resource type="Script" path="res://Scripts/zombie.gd" id="1_0sx26"]
 [ext_resource type="Texture2D" uid="uid://rbq4hvtpyhnt" path="res://Images/zombie_dot.png" id="1_f44bm"]
-[ext_resource type="Texture2D" uid="uid://dhddbptx2017g" path="res://Art Assets/Tile sheet ver 3 door fixed and Charac sheet 2/Charac sheet ver 2 - Copy.png" id="3_q51h7"]
+[ext_resource type="Texture2D" uid="uid://bk5ewcxty1nxn" path="res://Art Assets/Tile sheet ver 3 door fixed and Charac sheet 2/Charac sheet ver 2 - Copy.png" id="3_q51h7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_geawb"]
 height = 187.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndvn0"]
 radius = 260.094
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7h7n"]
+atlas = ExtResource("3_q51h7")
+region = Rect2(512, 192, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8qle"]
+atlas = ExtResource("3_q51h7")
+region = Rect2(512, 240, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qt2ju"]
 atlas = ExtResource("3_q51h7")
@@ -30,6 +38,17 @@ region = Rect2(448, 144, 32, 48)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_x7h7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8qle")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qt2ju")
 }, {
 "duration": 1.0,
@@ -44,6 +63,35 @@ animations = [{
 "loop": true,
 "name": &"walk",
 "speed": 2.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dsfm"]
+atlas = ExtResource("3_q51h7")
+region = Rect2(512, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y26yv"]
+atlas = ExtResource("3_q51h7")
+region = Rect2(544, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73oeo"]
+atlas = ExtResource("3_q51h7")
+region = Rect2(544, 144, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8lsun"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dsfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y26yv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73oeo")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 4.0
 }]
 
 [node name="Zombie" type="CharacterBody2D"]
@@ -77,8 +125,14 @@ shape = SubResource("CircleShape2D_ndvn0")
 [node name="ZombieAnimation" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -25)
 sprite_frames = SubResource("SpriteFrames_rwlaw")
-animation = &"walk"
+animation = &"attack"
+
+[node name="FistAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(24, -15)
+sprite_frames = SubResource("SpriteFrames_8lsun")
+animation = &"attack"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

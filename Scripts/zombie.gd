@@ -15,6 +15,8 @@ extends CharacterBody2D
 @onready var health = 1
 @onready var animation = $ZombieAnimation
 @onready var is_attacking = false
+@onready var player = null
+@onready var fist_animation = $FistAnimation
 
 var SPEED = 1800.0
 var direction
@@ -22,13 +24,13 @@ var direction
 signal zombie_death
 
 func _ready():
+	fist_animation.hide()
 	set_route()
 
 func _process(delta):
 	if (is_attacking):
 		return
 	animation.play("walk")
-	var player
 	var collide
 	var remain = position - nav_agent.target_position
 	if (abs(remain.x) + abs(remain.y) < 2 && !is_chasing):
@@ -36,7 +38,6 @@ func _process(delta):
 	for rays in ray_container.get_children():
 		collide = rays.get_collider()
 		if collide != null && collide is CharacterBody2D && collide.dude == "player":
-			player = collide
 			is_chasing = true
 			SPEED = 3500.0
 			nav_agent.target_position = collide.global_position
@@ -45,7 +46,12 @@ func _process(delta):
 	_generate_rays(direction)
 	if (abs(remain.x) < 32 && abs(remain.y) < 32 && is_chasing):
 		is_attacking = true
-		await get_tree().create_timer(1).timeout
+		animation.play("attack")
+		fist_animation.show()
+		fist_animation.play("attack")
+		await get_tree().create_timer(1.5).timeout
+		fist_animation.hide()
+		player.get_hit()
 		is_attacking = false
 	velocity = direction * SPEED * delta
 	move_and_slide()
@@ -107,7 +113,7 @@ func set_route():
 	going_back = !going_back
 
 func _on_area_2d_body_exited(body):
-	if dude in body && body.type == "player":
+	if body is CharacterBody2D && body.dude == "player":
 		is_chasing = false
 
 func get_hit():
@@ -120,3 +126,8 @@ func get_hit():
 		await get_tree().create_timer(0.1).timeout
 		zombie_sprite.show()
 		await get_tree().create_timer(0.1).timeout
+
+
+func _on_area_2d_body_entered(body):
+	if body is CharacterBody2D && body.dude == "player":
+		player = body

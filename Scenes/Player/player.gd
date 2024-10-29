@@ -3,11 +3,11 @@ extends CharacterBody2D
 @onready var dude = "player"
 @onready var animations = $PlayerAnimation
 @onready var fist_animations = $FistAnimation
-@onready var health = 5
+@onready var health = 10
 @onready var attack_ray = $AttackRay
 @onready var is_attacking = false
 
-const SPEED = 7500.0
+const SPEED = 5000.0
 
 signal dead_player
 
