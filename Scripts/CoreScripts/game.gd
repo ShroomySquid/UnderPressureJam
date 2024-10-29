@@ -4,8 +4,9 @@ extends Node2D
 @onready var menu = $CanvasLayer/MenuContainer
 @onready var settings = $CanvasLayer/Settings
 @onready var zombie_container = $ZombieContainer
-@onready var test_map = $Test_map
+@onready var map = $Level1
 @onready var zombie = preload("res://Scenes/PhysicsScenes/zombie.tscn")
+@onready var camera = $Camera2D
 
 func _ready():
 	randomize()
@@ -16,6 +17,12 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("esc"):
 		pause_trigger()
+	if Input.is_action_just_pressed("scroll_up") && camera.zoom.x < 3:
+		print(camera.zoom)
+		camera.zoom *= 1.1
+	if Input.is_action_just_pressed("scroll_down") && camera.zoom.x > 0.5:
+		print(camera.zoom)
+		camera.zoom *= 0.9
 
 func pause_trigger():
 	if (is_paused):
@@ -57,10 +64,10 @@ func create_some_zombies():
 	var end
 	while (i < 1):
 		new_zomb = zombie.instantiate()
-		begin = test_map.zombie_point_container.get_child(randi() % 20).global_position
-		end = test_map.zombie_point_container.get_child(randi() % 20).global_position
+		begin = map.zombie_point_container.get_child(randi() % 2).global_position
+		end = map.zombie_point_container.get_child(randi() % 2).global_position
 		while (end == begin):
-			end = test_map.zombie_point_container.get_child(randi() % 20).global_position
+			end = map.zombie_point_container.get_child(randi() % 2).global_position
 		new_zomb.position = begin
 		zombie_container.add_child(new_zomb)
 		new_zomb.default_route[0] = begin

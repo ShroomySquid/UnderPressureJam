@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cubm8ayprtkdv"]
+[gd_scene load_steps=4 format=3 uid="uid://cubm8ayprtkdv"]
 
 [ext_resource type="Script" path="res://Scripts/CoreScripts/game.gd" id="1_ntdck"]
 [ext_resource type="PackedScene" uid="uid://bwrhsav1b6hkf" path="res://Scenes/CoreScenes/settings.tscn" id="2_tpptn"]
-[ext_resource type="PackedScene" uid="uid://copc5o12pg2m5" path="res://Scenes/Map/test_map.tscn" id="3_yqot8"]
-[ext_resource type="PackedScene" uid="uid://b6044fncy35yu" path="res://Scenes/Player/player.tscn" id="4_cfcq8"]
+[ext_resource type="PackedScene" uid="uid://gn5lpiu32ncn" path="res://Scenes/Map/level_1.tscn" id="5_87bru"]
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_ntdck")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -59,13 +59,12 @@ offset_top = 204.0
 offset_right = -239.0
 offset_bottom = -105.0
 
-[node name="Test_map" parent="." instance=ExtResource("3_yqot8")]
-position = Vector2(269, 162)
-
 [node name="ZombieContainer" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("4_cfcq8")]
-position = Vector2(687, 394)
+[node name="Level1" parent="." instance=ExtResource("5_87bru")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(416, 308)
 
 [connection signal="pressed" from="CanvasLayer/PauseMargin/PauseBtn" to="." method="_on_pause_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuContainer/SettingBtn" to="." method="_on_setting_btn_pressed"]

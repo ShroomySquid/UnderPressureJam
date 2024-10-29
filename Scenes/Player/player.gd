@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@onready var type = "player"
+@onready var dude = "player"
 @onready var animations = $IdleAnimation
 
-const SPEED = 10000.0
+const SPEED = 7500.0
 const JUMP_VELOCITY = -400.0
 
 func _physics_process(delta):

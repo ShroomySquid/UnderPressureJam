@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var ray_separation = 40
 @onready var cardinals = {"left": Vector2i(-1, 0), "right": Vector2i(1, 0), "up": Vector2i(0, -1), "down": Vector2i(0, 1)}
 @onready var nav_agent = $NavigationAgent2D
-@onready var type = "zombie"
+@onready var dude = "zombie"
 @onready var default_route = [Vector2i(0, 0), Vector2i(0, 0)]
 @onready var going_back = true
 @onready var is_chasing = false
@@ -25,7 +25,7 @@ func _process(delta):
 		set_route()
 	for rays in ray_container.get_children():
 		collide = rays.get_collider()
-		if collide != null && collide is CharacterBody2D && collide.type == "player":
+		if collide != null && collide is CharacterBody2D && collide.dude == "player":
 			is_chasing = true
 			SPEED = 4000.0
 			nav_agent.target_position = collide.global_position
@@ -94,5 +94,5 @@ func set_route():
 	going_back = !going_back
 
 func _on_area_2d_body_exited(body):
-	if body.type == "player":
+	if dude in body && body.type == "player":
 		is_chasing = false
