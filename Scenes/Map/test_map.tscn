@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://copc5o12pg2m5"]
+[gd_scene load_steps=8 format=4 uid="uid://copc5o12pg2m5"]
 
 [ext_resource type="Texture2D" uid="uid://mpsfd04pgwgp" path="res://Art Assets/Template version/basic template tile sheet.png" id="1_4bymv"]
 [ext_resource type="Script" path="res://Scripts/test_map.gd" id="1_y8s1q"]
+[ext_resource type="PackedScene" uid="uid://b6044fncy35yu" path="res://Scenes/Player/player.tscn" id="3_lv2xt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jn1di"]
 
@@ -134,3 +135,5 @@ position = Vector2(48, 93)
 
 [node name="ZombieNavigation20" type="Marker2D" parent="ZombiePointContainer"]
 position = Vector2(41, 285)
+
+[node name="Player" parent="." instance=ExtResource("3_lv2xt")]

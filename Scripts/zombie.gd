@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var zombie_sprite = $ZombieSprite
 @onready var ray_container = $RayContainer
 @onready var ray_nbr = 20
 @onready var ray_range = 200
@@ -11,14 +12,23 @@ extends CharacterBody2D
 @onready var going_back = true
 @onready var is_chasing = false
 @onready var player_in_range = false
+@onready var health = 1
+@onready var animation = $ZombieAnimation
+@onready var is_attacking = false
 
-var SPEED = 2000.0
+var SPEED = 1800.0
 var direction
+
+signal zombie_death
 
 func _ready():
 	set_route()
 
 func _process(delta):
+	if (is_attacking):
+		return
+	animation.play("walk")
+	var player
 	var collide
 	var remain = position - nav_agent.target_position
 	if (abs(remain.x) + abs(remain.y) < 2 && !is_chasing):
@@ -26,14 +36,17 @@ func _process(delta):
 	for rays in ray_container.get_children():
 		collide = rays.get_collider()
 		if collide != null && collide is CharacterBody2D && collide.dude == "player":
+			player = collide
 			is_chasing = true
-			SPEED = 4000.0
+			SPEED = 3500.0
 			nav_agent.target_position = collide.global_position
 	direction = to_local(nav_agent.get_next_path_position()).normalized()
 	_remove_rays()
 	_generate_rays(direction)
 	if (abs(remain.x) < 32 && abs(remain.y) < 32 && is_chasing):
-		SPEED = 0.0
+		is_attacking = true
+		await get_tree().create_timer(1).timeout
+		is_attacking = false
 	velocity = direction * SPEED * delta
 	move_and_slide()
 
@@ -86,7 +99,7 @@ func _remove_rays():
 		ray_container.remove_child(ray_container.get_child(0))
 
 func set_route():
-	SPEED = 2000.0
+	SPEED = 1800.0
 	if going_back: 
 		nav_agent.target_position = default_route[0]
 	else:
@@ -96,3 +109,14 @@ func set_route():
 func _on_area_2d_body_exited(body):
 	if dude in body && body.type == "player":
 		is_chasing = false
+
+func get_hit():
+	health -= 1
+	if health <= 0:
+		queue_free()
+		zombie_death.emit()
+	for i in 5:
+		zombie_sprite.hide()
+		await get_tree().create_timer(0.1).timeout
+		zombie_sprite.show()
+		await get_tree().create_timer(0.1).timeout

@@ -35,6 +35,11 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="EndMsg" type="Label" parent="CanvasLayer/MenuContainer"]
+visible = false
+layout_mode = 2
+text = "Wut"
+
 [node name="SettingBtn" type="Button" parent="CanvasLayer/MenuContainer"]
 layout_mode = 2
 text = "Settings
@@ -72,3 +77,4 @@ position = Vector2(416, 308)
 [connection signal="pressed" from="CanvasLayer/MenuContainer/RetryBtn" to="." method="_on_retry_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
 [connection signal="exit_settings" from="CanvasLayer/Settings" to="." method="_on_settings_exit_settings"]
+[connection signal="player_death" from="Level1" to="." method="_on_level_1_player_death"]

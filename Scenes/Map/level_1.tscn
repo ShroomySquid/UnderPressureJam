@@ -129,3 +129,5 @@ position = Vector2(301, 399)
 
 [node name="Zombie finish" type="Marker2D" parent="ZombieContainer"]
 position = Vector2(487, 259)
+
+[connection signal="dead_player" from="Player" to="." method="_on_player_dead_player"]

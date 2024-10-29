@@ -2,11 +2,16 @@ extends Node2D
 
 @onready var is_paused := false
 @onready var menu = $CanvasLayer/MenuContainer
+@onready var setting_btn = $CanvasLayer/MenuContainer/SettingBtn
+@onready var resume_btn = $CanvasLayer/MenuContainer/ResumeBtn
+@onready var end_msg = $CanvasLayer/MenuContainer/EndMsg
 @onready var settings = $CanvasLayer/Settings
 @onready var zombie_container = $ZombieContainer
 @onready var map = $Level1
 @onready var zombie = preload("res://Scenes/PhysicsScenes/zombie.tscn")
 @onready var camera = $Camera2D
+@onready var dead_zombies = 0
+@onready var zombie_nbr = 2
 
 func _ready():
 	randomize()
@@ -55,6 +60,7 @@ func _on_quit_btn_pressed():
 	get_tree().quit()
 
 func _on_retry_btn_pressed():
+	Engine.time_scale = 1
 	get_tree().change_scene_to_file("res://Scenes/CoreScenes/game.tscn")
 	
 func create_some_zombies():
@@ -62,7 +68,7 @@ func create_some_zombies():
 	var new_zomb
 	var begin
 	var end
-	while (i < 1):
+	while (i < zombie_nbr):
 		new_zomb = zombie.instantiate()
 		begin = map.zombie_point_container.get_child(randi() % 2).global_position
 		end = map.zombie_point_container.get_child(randi() % 2).global_position
@@ -73,4 +79,26 @@ func create_some_zombies():
 		new_zomb.default_route[0] = begin
 		new_zomb.default_route[1] = end
 		new_zomb.set_route()
+		new_zomb.zombie_death.connect(count_dead_zombies)
 		i += 1
+
+func count_dead_zombies():
+	dead_zombies += 1
+	if dead_zombies >= zombie_nbr:
+		win()
+
+func win():
+	end_msg.text = "Victory!"
+	end_game()
+
+	
+func end_game():
+	Engine.time_scale = 0
+	end_msg.show()
+	resume_btn.hide()
+	setting_btn.hide()
+	menu.show()
+
+func _on_level_1_player_death():
+	end_msg.text = "Defeat..."
+	end_game()
